@@ -1,5 +1,1 @@
 # HasznaltHangszerek
-
-wannabewannabehunpoppstrar
-anyad
-vadunatújérzésváratlanünnepnyújtjaaglóriát
