@@ -1,0 +1,83 @@
+0. HA SZÜKSÉGES:
+----------------
+USE hasznalthangszerek;
+
+1. Melyek azok a hangszerek, amelyeket Gibsz Jakab töltött fel?
+---------------------------------------------------------------
+SELECT Instrument.iname FROM Instrument
+JOIN Upload ON Instrument.iid = Upload.iid
+JOIN Seller ON Seller.sid = Upload.sid
+WHERE (Seller.sname = 'Gibsz Jakab');
+
+2. Ki vásárolta meg és milyen felhasználónévvel a baritonkűrt megnevezésű hangszert?
+------------------------------------------------------------------------------------
+SELECT Customer.cname, Customer.username FROM Customer
+JOIN Purchase ON Customer.cid = Purchase.cid
+JOIN Instrument ON Instrument.iid = Purchase.iid
+WHERE (Instrument.iname = 'baritonkűrt');
+
+3. Melyik vásárló vásárolta a legtöbb hangszert?
+------------------------------------------------
+SELECT Customer.cname, COUNT(Purchase.pid) AS NumberOfPurchase FROM Customer
+JOIN Purchase ON Customer.cid = Purchase.cid
+GROUP BY Customer.cid
+ORDER BY NumberOfPurchase DESC
+LIMIT 1;
+
+4. Mi az 5 legdrágább hangszer, és kik az eladójuk?
+-----------------------------------------------------
+SELECT Instrument.iname, Instrument.cost, Seller.sname FROM Instrument
+JOIN Upload ON Instrument.iid = Upload.iid
+JOIN Seller ON Seller.sid = Upload.sid
+ORDER BY Instrument.cost DESC
+LIMIT 5;
+
+5. Listázd az összes vásárlást és azok dátumát, kategóriáját, szállítást, valamint az eladó és a vásárló nevét!
+---------------------------------------------------------------------------------------------------------------
+SELECT Purchase.dateofpurchase, Instrument.category, Purchase.shipping, Seller.sname, Customer.cname
+FROM Purchase
+JOIN Instrument ON Instrument.iid = Purchase.iid
+JOIN Customer ON Purchase.cid = Customer.cid
+JOIN Upload ON Instrument.iid = Upload.iid
+JOIN Seller ON Upload.sid = Seller.sid;
+
+6. Melyik eladó adta el a legdrágább hangszert?
+-----------------------------------------------
+SELECT Seller.sname, MAX(Instrument.cost) AS max_cost FROM Instrument
+JOIN Upload ON Instrument.iid = Upload.iid
+JOIN Seller ON Seller.sid = Upload.sid
+GROUP BY Seller.sid
+ORDER BY max_cost DESC
+LIMIT 1;
+
+7. Mi az összes hangszer, amit Kovács András vásárolt, és azok ára?
+-------------------------------------------------------------------
+SELECT Instrument.iname, Instrument.cost FROM Purchase
+JOIN Instrument ON Instrument.iid = Purchase.iid
+JOIN Customer ON Purchase.cid = Customer.cid
+WHERE (Customer.cname = 'Kovács András');
+
+8. Mely vásárlók élnek Magyarországon kívűl és vásároltak egy hangszert?
+------------------------------------------------------------------------
+SELECT DISTINCT Customer.cname FROM Customer
+JOIN Purchase ON Customer.cid = Purchase.cid
+JOIN Instrument ON Instrument.iid = Purchase.iid
+WHERE Customer.country NOT LIKE 'Magyarország';
+
+9. Kik azok az eladók, akik legalább 5 hangszert adtak el?
+----------------------------------------------------------
+SELECT Seller.sname FROM Seller
+JOIN Upload ON Seller.sid = Upload.sid
+GROUP BY Seller.sid
+HAVING COUNT(Upload.uid) >= 5;
+
+10. Kik azok a vásárlók, akik a legdrágább hangszerük vásárlásakor használták a "PayPal" fizetési módot?
+-------------------------------------------------------------------------------------------------------- 
+SELECT Customer.cname, Purchase.payment_method FROM Customer
+JOIN Purchase ON Customer.cid = Purchase.cid
+WHERE (Purchase.payment_methot = 'PayPal')
+AND Purchase.iid = (
+    SELECT iid
+    FROM Instrument
+    WHERE cost = (SELECT MAX(cost) FROM Instrument)
+);
