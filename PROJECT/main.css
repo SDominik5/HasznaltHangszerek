@@ -1,0 +1,81 @@
+* {
+  font-family: "Celinda";
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  display: grid;
+  grid-template-rows: 0.2fr 0.1fr 2fr;
+  grid-template-columns: 1fr 1fr 0.5fr;
+  grid-template-areas:
+    "header header header"
+    "nav nav nav"
+    "article article section"
+    "footer footer footer";
+  height: 100vh;
+  margin: 0;
+}
+
+header {
+  grid-area: header;
+  background-color: #fbf6ef;
+  text-align: center;
+  line-height: 5rem;
+  font-size: xx-large;
+}
+button {
+  border: 0px;
+  background-color: transparent;
+  line-height: 3rem;
+  font-size: large;
+}
+
+button:hover {
+  color: wheat;
+  font-size: larger;
+}
+
+nav {
+  grid-area: nav;
+  background-color: #77625c;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+article {
+  grid-area: article;
+  background-color: #ead7ce;
+  font-size: 30px;
+  overflow-y: scroll;
+}
+
+#nav-bar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#search {
+  height: 2rem;
+}
+
+section {
+  grid-area: section;
+  background-color: #d4c4bc;
+}
+
+footer {
+  background-color: #5a5958;
+  color: rgba(248, 227, 227, 0.5);
+  text-align: center;
+  line-height: 4rem;
+  font-size: xx-large;
+}
+
+@font-face {
+  font-family: "Celinda";
+  src: url(fonts/Celinda.otf);
+}
