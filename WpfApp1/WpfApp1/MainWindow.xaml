@@ -74,17 +74,8 @@
                 </ListBox.ItemsPanel>
 
                 <ListBoxItem>
-                    <Button Content="Users" Background="Transparent" BorderThickness="0">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="White"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                    </Button>
+                    <Button Content="Users" 
+                            Background="Transparent" BorderThickness="0"/>
                 </ListBoxItem>
                 <ListBoxItem Content="Orders"/>
                 <ListBoxItem/>
