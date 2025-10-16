@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace WpfApp1.Model
 {
-    internal class User
+     class User
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -23,7 +23,7 @@ namespace WpfApp1.Model
 
         public override string ToString()
         {
-            return $"id: {Id}, név: {Name}, értékelés: {Review}";
+            return $"{Name}";
         }
     }
 }

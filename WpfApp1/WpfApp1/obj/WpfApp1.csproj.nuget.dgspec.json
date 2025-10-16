@@ -54,6 +54,14 @@
             "MySql.Data": {
               "target": "Package",
               "version": "[8.0.21, )"
+            },
+            "ScottPlot": {
+              "target": "Package",
+              "version": "[5.1.57, )"
+            },
+            "ScottPlot.WPF": {
+              "target": "Package",
+              "version": "[5.1.57, )"
             }
           },
           "imports": [

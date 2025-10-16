@@ -57,7 +57,7 @@ namespace WpfApp1.DbAccess
 
         public override IEnumerable<User> ReadAll()
         {
-            IEnumerable<User> result = new List<User>();
+            List<User> result = new List<User>();
             using (var cmd = _conn.CreateCommand())
             {
                 cmd.CommandText = "SELECT uid, uname, email, pnumber, password, review, postalcode, city, streetHnum FROM user;";
@@ -65,16 +65,17 @@ namespace WpfApp1.DbAccess
                 {
                     while (reader.Read())
                     {
-                        result.Append(new User
+                        result.Add(new User
                         {
                             Id = reader.GetInt32(0),
                             Name = reader.GetString(1),
                             Email = reader.GetString(2),
                             Phone = reader.GetInt32(3),
-                            Review = reader.GetFloat(4),
-                            PostalCode = reader.GetInt32(5),
-                            City = reader.GetString(6),
-                            streetHnum = reader.GetString(7)
+                            Password = reader.GetString(4),
+                            Review = reader.GetFloat(5),
+                            PostalCode = reader.GetInt32(6),
+                            City = reader.GetString(7),
+                            streetHnum = reader.GetString(8)
                         });
                     }
                 }
