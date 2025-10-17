@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
@@ -10,7 +11,7 @@ using WpfApp1.Model;
 
 namespace WpfApp1.DbAccess
 {
-    class DbOrderInfo : DbAccessor<OrderInfo>
+    public class DbOrderInfo : DbAccessor<OrderInfo>
     {
 
         protected DbConnection _conn;
@@ -92,6 +93,27 @@ namespace WpfApp1.DbAccess
         public override bool Delete(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public Dictionary<string, int> StatisticsByMonth()
+        {
+            Dictionary<string, int> results = new Dictionary<string, int>();
+
+            using (var cmd = _conn.CreateCommand())
+            {
+                cmd.CommandText = $"SELECT MONTHNAME(dateOfPurchase) as months, Count(*) FROM orderinfo GROUP BY months;";
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        results.Add(reader.GetString(0), reader.GetInt32(1));
+                    }
+                }
+            }
+
+
+
+            return results;
         }
     }
 }

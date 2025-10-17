@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace WpfApp1.Model
 {
-     class User
+    public class User
     {
         public int Id { get; set; }
         public string Name { get; set; }

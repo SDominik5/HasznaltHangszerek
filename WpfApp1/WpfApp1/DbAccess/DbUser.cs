@@ -9,7 +9,7 @@ using System.Windows;
 
 namespace WpfApp1.DbAccess
 {
-    internal class DbUser : DbAccessor<User>
+    public class DbUser : DbAccessor<User>
     {
         protected DbConnection _conn;
         public DbUser(DbConnection conn) : base(conn)

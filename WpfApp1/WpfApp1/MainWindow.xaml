@@ -8,11 +8,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="800" 
         ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen">
-
-    <Window.Resources>
-        
-    </Window.Resources>
-
     <Grid>
   
 
@@ -85,11 +80,6 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="2.5*"/>
             </Grid.ColumnDefinitions>
-
-            <Grid Grid.ColumnSpan="2">
-                <ScottPlot:WpfPlot x:Name="Chart"/>
-
-            </Grid>
         </Grid>
     </Grid>
 </Window>

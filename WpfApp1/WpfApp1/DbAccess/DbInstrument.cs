@@ -10,7 +10,7 @@ using System.Windows;
 
 namespace WpfApp1.DbAccess
 {
-    internal class DbInstrument : DbAccessor<Instr>
+    public class DbInstrument : DbAccessor<Instr>
     {
         protected DbConnection _conn;
         public DbInstrument(DbConnection conn) : base(conn)

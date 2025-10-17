@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfApp1.Model
 {
-    class OrderInfo
+    public class OrderInfo
     {
         public int OId { get; set; }
         public DateTime DateOfPurchase { get; set; }

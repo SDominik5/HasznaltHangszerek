@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WpfApp1.Model
 {
-     class Instr
+    public class Instr
     {       
         public int Id { get; set; }
         public string Name { get; set; }
