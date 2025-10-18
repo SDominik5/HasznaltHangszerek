@@ -7,7 +7,8 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="800" 
-        ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen">
+        ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen"
+        MouseDown="Window_MouseDown">
     <Grid>
   
 

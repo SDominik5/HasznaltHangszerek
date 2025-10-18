@@ -39,6 +39,14 @@ namespace WpfApp1
             Loaded += MyWindowLoaded;
         }
 
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
+
         private void MyWindowLoaded(object sender, RoutedEventArgs e)
         {
             using (var conn = new MySqlConnection(_conn))
