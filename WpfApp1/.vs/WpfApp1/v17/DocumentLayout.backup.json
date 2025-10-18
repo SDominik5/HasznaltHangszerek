@@ -7,10 +7,6 @@
       "RelativeMoniker": "D:0:0:{ADD5D450-A870-42BC-812C-46004FCF8BC8}|WpfApp1\\WpfApp1.csproj|solutionrelative:wpfapp1\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ADD5D450-A870-42BC-812C-46004FCF8BC8}|WpfApp1\\WpfApp1.csproj|c:\\users\\dodo3\\desktop\\projects\\hasznalthangszerek\\wpfapp1\\wpfapp1\\dbaccess\\dborderinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ADD5D450-A870-42BC-812C-46004FCF8BC8}|WpfApp1\\WpfApp1.csproj|solutionrelative:wpfapp1\\dbaccess\\dborderinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{ADD5D450-A870-42BC-812C-46004FCF8BC8}|WpfApp1\\WpfApp1.csproj|c:\\users\\dodo3\\desktop\\projects\\hasznalthangszerek\\wpfapp1\\wpfapp1\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{ADD5D450-A870-42BC-812C-46004FCF8BC8}|WpfApp1\\WpfApp1.csproj|solutionrelative:wpfapp1\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
@@ -22,24 +18,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "DbOrderInfo.cs",
-              "DocumentMoniker": "C:\\Users\\dodo3\\Desktop\\projects\\HasznaltHangszerek\\WpfApp1\\WpfApp1\\DbAccess\\DbOrderInfo.cs",
-              "RelativeDocumentMoniker": "WpfApp1\\DbAccess\\DbOrderInfo.cs",
-              "ToolTip": "C:\\Users\\dodo3\\Desktop\\projects\\HasznaltHangszerek\\WpfApp1\\WpfApp1\\DbAccess\\DbOrderInfo.cs",
-              "RelativeToolTip": "WpfApp1\\DbAccess\\DbOrderInfo.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAQwHQAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-17T12:34:59.952Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\dodo3\\Desktop\\projects\\HasznaltHangszerek\\WpfApp1\\WpfApp1\\MainWindow.xaml",
               "RelativeDocumentMoniker": "WpfApp1\\MainWindow.xaml",
@@ -57,7 +40,7 @@
               "RelativeDocumentMoniker": "WpfApp1\\MainWindow.xaml.cs",
               "ToolTip": "C:\\Users\\dodo3\\Desktop\\projects\\HasznaltHangszerek\\WpfApp1\\WpfApp1\\MainWindow.xaml.cs",
               "RelativeToolTip": "WpfApp1\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAKcAAAAAAAAAAAAQwMIAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAEQAAAAAAAAAAAAswF8AAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-16T15:09:55.717Z",
               "EditorCaption": ""

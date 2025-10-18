@@ -30,6 +30,8 @@ namespace WpfApp1
         List<object> users = new List<object>();
         List<object> orders = new List<object>();
         List<object> instruments = new List<object>();
+        ListBox listbox = new ListBox();
+        StackPanel field;
 
         public MainWindow()
         {
@@ -73,6 +75,7 @@ namespace WpfApp1
         {
             Refresh();
             ListBoxCreate(users);
+            
         }
 
         private void LBIOrders_Selected(object sender, RoutedEventArgs e)
@@ -116,6 +119,7 @@ namespace WpfApp1
             plot.Axes.Bottom.TickGenerator = new ScottPlot.TickGenerators.NumericManual(ticks);
             plot.Axes.Bottom.TickLabelStyle.Rotation = 45;
             plot.Axes.Bottom.TickLabelStyle.Alignment = Alignment.MiddleLeft;
+            wpfplot.UserInputProcessor.Disable();
 
             float largestLabelWidth = 0;
             using Paint paint = Paint.NewDisposablePaint();
@@ -133,8 +137,9 @@ namespace WpfApp1
 
         private void ListBoxCreate(List<object> listtype)
         {
-            ListBox listbox = new ListBox();
+
             listbox.ItemsSource = listtype;
+            listbox.SelectionChanged += CreateListBoxItemField;
 
             Body.Children.Add(listbox);
         }
@@ -142,6 +147,55 @@ namespace WpfApp1
         private void Refresh()
         {
             Body.Children.Clear();
+        }
+
+        private void CreateListBoxItemField(object sender, SelectionChangedEventArgs e)
+        {
+            Body.Children.Remove(field);
+            field = new StackPanel();
+            object selectedItem =  listbox.SelectedItem;
+
+            if (selectedItem == null) 
+            {
+                return;
+            }
+
+            foreach (var property in selectedItem.GetType().GetProperties())
+            {
+                
+                Grid grid = new Grid();
+
+                grid.ColumnDefinitions.Add(new ColumnDefinition 
+                { 
+                    Width = GridLength.Auto
+                });
+                grid.ColumnDefinitions.Add(new ColumnDefinition 
+                { 
+                    Width = new GridLength(1, GridUnitType.Star)
+                });
+
+                System.Windows.Controls.Label label = new System.Windows.Controls.Label();
+                label.Content = $"{property.Name}: ";
+                label.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+                Grid.SetColumn(label, 0);
+                label.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
+
+                TextBox textbox = new TextBox();
+                textbox.BorderBrush = Brushes.Transparent;
+                textbox.Background = Brushes.Transparent;
+                textbox.Width = 120;
+                textbox.Text = property.GetValue(selectedItem).ToString();
+                Grid.SetColumn(textbox, 1);
+                textbox.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+
+                grid.Children.Add(label);
+                grid.Children.Add(textbox);
+                field.Children.Add(grid);
+            }
+
+            Grid.SetColumn(field, 1);
+            Body.Children.Add(field);
+
         }
 
         public Dictionary<string, double> StatisticsByMonth()
