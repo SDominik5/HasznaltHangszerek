@@ -8,7 +8,7 @@ namespace WpfApp1.Model
 {
     public class OrderInfo
     {
-        public int OId { get; set; }
+        public int Id { get; set; }
         public DateTime DateOfPurchase { get; set; }
         public string DeliveryCity {  get; set; }
         public string DeliveryStreet {  get; set; }
@@ -19,7 +19,7 @@ namespace WpfApp1.Model
 
         public override string ToString()
         {
-            return $"{OId}";
+            return $"{Id}";
         }
 
     }

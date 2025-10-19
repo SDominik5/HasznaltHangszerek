@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Google.Protobuf.WellKnownTypes;
+using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Asn1.Cmp;
 using Org.BouncyCastle.Crypto.Tls;
 using ScottPlot;
@@ -18,6 +19,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfApp1.DbAccess;
 using WpfApp1.Model;
+using System.Reflection;
+using OpenTK.Graphics.OpenGL;
+using ScottPlot.Plottables;
 
 namespace WpfApp1
 {
@@ -32,13 +36,13 @@ namespace WpfApp1
         List<object> instruments = new List<object>();
         ListBox listbox = new ListBox();
         StackPanel field;
+        object selectedItem;
 
         public MainWindow()
         {
             InitializeComponent();
             Loaded += MyWindowLoaded;
         }
-
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -46,7 +50,6 @@ namespace WpfApp1
                 DragMove();
             }
         }
-
         private void MyWindowLoaded(object sender, RoutedEventArgs e)
         {
             using (var conn = new MySqlConnection(_conn))
@@ -68,30 +71,25 @@ namespace WpfApp1
                 }
             }
         }
-
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
-
         private void btnMinimize_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
         }
-
         private void LBIUsers_Selected(object sender, RoutedEventArgs e)
         {
             Refresh();
             ListBoxCreate(users);
             
         }
-
         private void LBIOrders_Selected(object sender, RoutedEventArgs e)
         {
             Refresh();
             ListBoxCreate(orders);
         }
-
         private void LBIStatistics_Selected(object sender, RoutedEventArgs e)
         {
             Refresh();
@@ -142,7 +140,6 @@ namespace WpfApp1
 
             ChartField.Children.Add(wpfplot);
         }
-
         private void ListBoxCreate(List<object> listtype)
         {
 
@@ -151,17 +148,15 @@ namespace WpfApp1
 
             Body.Children.Add(listbox);
         }
-
         private void Refresh()
         {
             Body.Children.Clear();
         }
-
         private void CreateListBoxItemField(object sender, SelectionChangedEventArgs e)
         {
             Body.Children.Remove(field);
             field = new StackPanel();
-            object selectedItem =  listbox.SelectedItem;
+            selectedItem =  listbox.SelectedItem;
 
             if (selectedItem == null) 
             {
@@ -182,10 +177,19 @@ namespace WpfApp1
                     Width = new GridLength(1, GridUnitType.Star)
                 });
 
+                grid.RowDefinitions.Add(new RowDefinition{
+                    Height = new GridLength(4, GridUnitType.Star)
+                });
+                grid.RowDefinitions.Add(new RowDefinition
+                {
+                    Height = new GridLength(1, GridUnitType.Star)
+                });
+
                 System.Windows.Controls.Label label = new System.Windows.Controls.Label();
                 label.Content = $"{property.Name}: ";
                 label.VerticalAlignment = System.Windows.VerticalAlignment.Center;
                 Grid.SetColumn(label, 0);
+                Grid.SetRow(label, 0);
                 label.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
 
                 TextBox textbox = new TextBox();
@@ -194,6 +198,7 @@ namespace WpfApp1
                 textbox.Width = 120;
                 textbox.Text = property.GetValue(selectedItem).ToString();
                 Grid.SetColumn(textbox, 1);
+                Grid.SetRow(textbox, 0);
                 textbox.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
 
                 grid.Children.Add(label);
@@ -201,11 +206,105 @@ namespace WpfApp1
                 field.Children.Add(grid);
             }
 
+            Button Modify = new Button();
+            Grid.SetRow(Modify, 1);
+            Modify.Width = 100;
+            Modify.Content = "Módosítás";
+            Modify.AddHandler(Button.ClickEvent, new RoutedEventHandler(btnModify_Click), true);
+            field.Children.Add(Modify);
+
+            Button Remove = new Button();
+            Grid.SetRow(Remove, 1);
+            Remove.Width = 100;
+            Remove.Content = "Törlés";
+            Remove.AddHandler(Button.ClickEvent, new RoutedEventHandler(btnRemove_Click), true);
+            field.Children.Add(Remove);
+
+            Button Create = new Button();
+
             Grid.SetColumn(field, 1);
             Body.Children.Add(field);
 
         }
+        public void btnModify_Click(object sender, RoutedEventArgs e)
+        {
+            if (selectedItem == null) 
+            {
+                MessageBox.Show("Nincs kiválasztott alany!");
+                return;
+            }
 
+            var data = field.Children.OfType<Grid>().SelectMany(d => d.Children.OfType<TextBox>()).ToList();
+            User user = new User()
+            {
+                Id = int.Parse(data[0].Text),
+                Name = data[1].Text,
+                Email = data[2].Text,
+                Phone = int.Parse(data[3].Text),
+                Password = data[4].Text,
+                Review = int.Parse(data[5].Text),
+                PostalCode = int.Parse(data[6].Text),
+                City = data[7].Text,
+                streetHnum = data[8].Text
+            };
+
+            using (var conn = new MySqlConnection(_conn))
+            {
+                conn.Open();
+
+                switch (selectedItem) 
+                {
+                    case User:
+                        DbUser dbuser = new DbUser(conn);
+                        dbuser.Update(user.Id, user);
+                        users.Clear();
+                        foreach(var u in new DbUser(conn).ReadAll())
+                        {
+                            users.Add(u);
+                        }
+                        listbox.ItemsSource = null;
+                        listbox.ItemsSource = users;
+                        selectedItem = null;
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }
+        }
+        public void btnRemove_Click(object sender, RoutedEventArgs e)
+        {
+            if (selectedItem == null)
+            {
+                MessageBox.Show("Nincs kiválasztott alany!");
+                return;
+            }
+
+            using (var conn = new MySqlConnection(_conn))
+            {
+                conn.Open();
+
+                switch (selectedItem)
+                {
+                    case User u:
+                        DbUser dbuser = new DbUser(conn);
+                        dbuser.Delete(u.Id);
+                        users.Clear();
+                        foreach (var user in dbuser.ReadAll())
+                        {
+                            users.Add(user);
+                        }
+                        listbox.ItemsSource = null;
+                        listbox.ItemsSource = users;
+                        selectedItem = null;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        }
         public Dictionary<string, double> StatisticsByMonth()
         {
             Dictionary<string, double> results = new Dictionary<string, double>()

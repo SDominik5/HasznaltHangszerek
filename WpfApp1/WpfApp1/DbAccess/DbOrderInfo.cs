@@ -42,7 +42,7 @@ namespace WpfApp1.DbAccess
                     {
                         order = new OrderInfo
                         {
-                            OId = id,
+                            Id = id,
                             DateOfPurchase = reader.GetDateTime(1),
                             DeliveryCity = reader.GetString(2),
                             DeliveryStreet = reader.GetString(3),
@@ -70,7 +70,7 @@ namespace WpfApp1.DbAccess
                     {
                         result.Add(new OrderInfo
                         {
-                            OId = reader.GetInt32(0),
+                            Id = reader.GetInt32(0),
                             DateOfPurchase = reader.GetDateTime(1),
                             DeliveryCity = reader.GetString(2),
                             DeliveryStreet = reader.GetString(3),
@@ -85,7 +85,7 @@ namespace WpfApp1.DbAccess
             return result;
         }
 
-        public override OrderInfo Update(int id, OrderInfo user)
+        public override void Update(int id, OrderInfo user)
         {
             throw new NotImplementedException();
         }

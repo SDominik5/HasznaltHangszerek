@@ -32,7 +32,7 @@ namespace WpfApp1.DbAccess
             User? user = new User();
             using (var cmd = _conn.CreateCommand())
             {
-                cmd.CommandText = $"SELECT uname, email, pnumber, review, postalcode, city, streetHnum FROM user WHERE uid={id};";
+                cmd.CommandText = $"SELECT city, email, uname, password, pnumber, postalcode, review, streetHnum FROM user WHERE uid={id};";
                 using (var reader = cmd.ExecuteReader())
                 {
                     if (reader.Read())
@@ -40,13 +40,14 @@ namespace WpfApp1.DbAccess
                         user = new User
                         {
                             Id = id,
-                            Name = reader.GetString(1),
+                            Name = reader.GetString(3),
+                            Password = reader.GetString(4),
                             Email = reader.GetString(2),
-                            Phone = reader.GetInt32(3),
-                            Review = reader.GetFloat(4),
-                            PostalCode = reader.GetInt32(5),
-                            City = reader.GetString(6),
-                            streetHnum = reader.GetString(7)
+                            Phone = reader.GetInt32(5),
+                            Review = reader.GetFloat(7),
+                            PostalCode = reader.GetInt32(6),
+                            City = reader.GetString(1),
+                            streetHnum = reader.GetString(8)
                         };
                     }
                 }
@@ -83,25 +84,30 @@ namespace WpfApp1.DbAccess
             return result;
         }
 
-        public override User Update(int id, User user)
+        public override void Update(int id, User user)
         {
             using (var cmd = _conn.CreateCommand())
             {
                 cmd.CommandText = $"UPDATE user " +
-                                  $"SET uname={user.Name}, email={user.Email}, pnumber={user.Phone}, password={user.Password}, review={user.Review}, " +
-                                  $"postalcode={user.PostalCode}, city={user.City}, streetHnum={user.streetHnum} " +
+                                  $"SET uname=\"{user.Name}\", email=\"{user.Email}\", pnumber={user.Phone}, password=\"{user.Password}\", review={user.Review}, " +
+                                  $"postalcode={user.PostalCode}, city=\"{user.City}\", streetHnum=\"{user.streetHnum}\" " +
                                   $"WHERE uid={id};";
                 if (cmd.ExecuteNonQuery() == 1) { MessageBox.Show("Sikeres adatfrissítés"); }
             }
 
-            return Read(id);
+            
         }
 
         public override bool Delete(int id)
         {
-            User? user = Read(id);
             using (var cmd = _conn.CreateCommand())
             {
+                cmd.CommandText = $"DELETE FROM orderinfo WHERE cid={id} OR sid={id} OR iid IN (SELECT iid FROM instrument WHERE uid={id})";
+                cmd.ExecuteNonQuery();
+
+                cmd.CommandText = $"DELETE FROM instrument WHERE uid={id}";
+                cmd.ExecuteNonQuery();
+
                 cmd.CommandText = $"DELETE FROM user WHERE uid={id};";
                 return (cmd.ExecuteNonQuery() == 1);
             }

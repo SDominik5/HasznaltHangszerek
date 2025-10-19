@@ -90,7 +90,7 @@ namespace WpfApp1.DbAccess
             return results;
         }
 
-        public override Instr Update(int id, Instr item)
+        public override void Update(int id, Instr item)
         {
             using (var cmd = _conn.CreateCommand())
             {
@@ -103,7 +103,6 @@ namespace WpfApp1.DbAccess
                                   $"WHERE iid={id};";
                 if (cmd.ExecuteNonQuery() == 1) { MessageBox.Show("Sikeres adatfrissítés!"); }
             }
-            return Read(id);
         }
     }
 }

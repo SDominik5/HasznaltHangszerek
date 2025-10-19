@@ -14,7 +14,7 @@ namespace WpfApp1.DbAccess
         public abstract void Create(T item);
         public abstract T? Read(int id);
         public abstract IEnumerable<T> ReadAll();
-        public abstract T Update(int id, T item);
+        public abstract void Update(int id, T item);
         public abstract bool Delete(int id);
 
         protected DbAccessor(DbConnection conn)
