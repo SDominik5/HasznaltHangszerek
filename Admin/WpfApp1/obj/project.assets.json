@@ -7218,11 +7218,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dodo3\\Desktop\\projects\\HasznaltHangszerek\\WpfApp1\\WpfApp1\\WpfApp1.csproj",
+      "projectUniqueName": "C:\\Users\\dodo3\\Desktop\\projects\\HasznaltHangszerek\\Admin\\WpfApp1\\WpfApp1.csproj",
       "projectName": "WpfApp1",
-      "projectPath": "C:\\Users\\dodo3\\Desktop\\projects\\HasznaltHangszerek\\WpfApp1\\WpfApp1\\WpfApp1.csproj",
+      "projectPath": "C:\\Users\\dodo3\\Desktop\\projects\\HasznaltHangszerek\\Admin\\WpfApp1\\WpfApp1.csproj",
       "packagesPath": "C:\\Users\\dodo3\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dodo3\\Desktop\\projects\\HasznaltHangszerek\\WpfApp1\\WpfApp1\\obj\\",
+      "outputPath": "C:\\Users\\dodo3\\Desktop\\projects\\HasznaltHangszerek\\Admin\\WpfApp1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\MicrosoftVisualStudio\\Shared\\NuGetPackages"

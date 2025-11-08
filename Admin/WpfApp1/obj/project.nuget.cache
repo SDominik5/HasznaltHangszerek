@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Ztj/By3vNCE=",
+  "dgSpecHash": "WHh6AlgxXLc=",
   "success": true,
-  "projectFilePath": "C:\\Users\\dodo3\\Desktop\\projects\\HasznaltHangszerek\\WpfApp1\\WpfApp1\\WpfApp1.csproj",
+  "projectFilePath": "C:\\Users\\dodo3\\Desktop\\projects\\HasznaltHangszerek\\Admin\\WpfApp1\\WpfApp1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\dodo3\\.nuget\\packages\\bouncycastle.netcore\\1.8.3\\bouncycastle.netcore.1.8.3.nupkg.sha512",
     "C:\\Users\\dodo3\\.nuget\\packages\\google.protobuf\\3.6.1\\google.protobuf.3.6.1.nupkg.sha512",
@@ -136,9 +136,9 @@
       "code": "NU1701",
       "level": "Warning",
       "message": "Package 'SkiaSharp.Views.WPF 3.119.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0-windows7.0'. This package may not be fully compatible with your project.",
-      "projectPath": "C:\\Users\\dodo3\\Desktop\\projects\\HasznaltHangszerek\\WpfApp1\\WpfApp1\\WpfApp1.csproj",
+      "projectPath": "C:\\Users\\dodo3\\Desktop\\projects\\HasznaltHangszerek\\Admin\\WpfApp1\\WpfApp1.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\dodo3\\Desktop\\projects\\HasznaltHangszerek\\WpfApp1\\WpfApp1\\WpfApp1.csproj",
+      "filePath": "C:\\Users\\dodo3\\Desktop\\projects\\HasznaltHangszerek\\Admin\\WpfApp1\\WpfApp1.csproj",
       "libraryId": "SkiaSharp.Views.WPF",
       "targetGraphs": [
         "net8.0-windows7.0"
