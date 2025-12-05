@@ -20,6 +20,7 @@ form.addEventListener("submit", (e) => {
       passwordInput.value,
       repasswordInput.value
     );
+    
   } else {
     //Login
     errors = getLoginFormErrors(emailInput.value, passwordInput.value);
@@ -39,58 +40,68 @@ function getSignupFormErrors(
   password,
   repassword
 ) {
-  let errors = [];
-  if (lastname === "" || lastname == null) {
-    errors.push("A vezetéknév szükséges!");
-    lastnameInput.parentElement.classList.add("incorrect");
-  }
-  if (firstname === "" || firstname == null) {
-    errors.push("A keresztnév szükséges!");
-    firstnameInput.parentElement.classList.add("incorrect");
-  }
-  if (birthdate === "" || birthdate == null) {
-    errors.push("A születési dátum szükséges!");
-    birthdateInput.parentElement.classList.add("incorrect");
-  }
-  if (email === "" || email == null) {
-    errors.push("Az email szükséges!");
-    emailInput.parentElement.classList.add("incorrect");
-  }
-  if (password === "" || password == null) {
-    errors.push("A jelszó szükséges!");
-    passwordInput.parentElement.classList.add("incorrect");
-  } else if (password.length < 8) {
-    errors.push("A jelszónak legalább 8 karakter hosszúnak kell lennie!");
-    passwordInput.parentElement.classList.add("incorrect");
-  }
-  if (repassword === "" || repassword == null) {
-    errors.push("A jelszó megerősítése szükséges!");
-    repasswordInput.parentElement.classList.add("incorrect");
-  } else if (repassword != password) {
-    errors.push("A megadott jelszó nem egyezik!");
-    passwordInput.parentElement.classList.add("incorrect");
-    repasswordInput.parentElement.classList.add("incorrect");
-  }
+    let errors = [];
+    if (lastname === "" || lastname == null) {
+      errors.push("A vezetéknév szükséges!");
+      lastnameInput.parentElement.classList.add("incorrect");
+    }
+    if (firstname === "" || firstname == null) {
+      errors.push("A keresztnév szükséges!");
+      firstnameInput.parentElement.classList.add("incorrect");
+    }
+    if (birthdate === "" || birthdate == null) {
+      errors.push("A születési dátum szükséges!");
+      birthdateInput.parentElement.classList.add("incorrect");
+    }
+    if (email === "" || email == null) {
+      errors.push("Az email szükséges!");
+      emailInput.parentElement.classList.add("incorrect");
+    } else if(!email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)){
+      errors.push("Nem megfelelő email cím!");
+      emailInput.parentElement.classList.add("incorrect");
+    }
+    if (password === "" || password == null) {
+      errors.push("A jelszó szükséges!");
+      passwordInput.parentElement.classList.add("incorrect");
+    } else if (password.length < 8) {
+      errors.push("A jelszónak legalább 8 karakter hosszúnak kell lennie!");
+      passwordInput.parentElement.classList.add("incorrect");
+    } else if(!password.match(/\d+/)){
+      errors.push("A jelszónak legalább 1 számot kell tartalmaznia!");
+      passwordInput.parentElement.classList.add("incorrect");
+    } else if(!password.match(/[@$!%*#?&-]+/)){
+      errors.push("A jelszónak legalább 1 speciális karaktert kell tartalmaznia!");
+      passwordInput.parentElement.classList.add("incorrect");
+    } else if(!password.match(/[A-Z]+/)){
+      errors.push("A jelszónak legalább 1 nagybetűt kell tartalmaznia!");
+      passwordInput.parentElement.classList.add("incorrect");
+    }
+    if (repassword === "" || repassword == null) {
+      errors.push("A jelszó megerősítése szükséges!");
+      repasswordInput.parentElement.classList.add("incorrect");
+    } else if (repassword != password) {
+      errors.push("A megadott jelszó nem egyezik!");
+      passwordInput.parentElement.classList.add("incorrect");
+      repasswordInput.parentElement.classList.add("incorrect");
+    }
+    const allInputs = [
+      lastnameInput,
+      firstnameInput,
+      birthdateInput,
+      emailInput,
+      passwordInput,
+      repasswordInput,
+    ];
 
-  const allInputs = [
-    lastnameInput,
-    firstnameInput,
-    birthdateInput,
-    emailInput,
-    passwordInput,
-    repasswordInput,
-  ];
-
-  allInputs.forEach((input) => {
-    input.addEventListener("input", () => {
-      if (input.parentElement.classList.contains("incorrect")) {
-        input.parentElement.classList.remove("incorrect");
-        errorMessage.innerText = "";
-      }
+    allInputs.forEach((input) => {
+      input.addEventListener("input", () => {
+        if (input.parentElement.classList.contains("incorrect")) {
+          input.parentElement.classList.remove("incorrect");
+          errorMessage.innerText = "";
+        }
+      });
     });
-  });
-
-  return errors;
+    return errors;
 }
 
 function getLoginFormErrors(email, password) {
