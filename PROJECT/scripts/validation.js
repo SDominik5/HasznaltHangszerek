@@ -30,6 +30,9 @@ form.addEventListener("submit", (e) => {
     e.preventDefault();
     errorMessage.innerText = `Hiba: ${errors.join(" ")}`;
   }
+  else{
+    //VALIDATION HERE!!!
+  }
 });
 
 function getSignupFormErrors(
