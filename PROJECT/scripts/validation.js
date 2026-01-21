@@ -36,6 +36,7 @@ form.addEventListener("submit", (e) => {
       e.preventDefault();
       errorMessage.innerText = `Hiba: ${errors.join(" ")}`;
     } else {
+      e.preventDefault();
       fetch(url, {
         method: "POST",
         headers: {
@@ -45,13 +46,12 @@ form.addEventListener("submit", (e) => {
           Email: emailInput.value,
           Password: passwordInput.value,
         }),
+        mode: "no-cors",
       })
         .then((response) => {
           if (!response.ok) {
-            if (response.status === 401) {
-              errorMessage.innerText = "Hibás a jelszó.";
-            } else if (response.status === 404) {
-              errorMessage.innerText = "Az e-mail cím nem található";
+            if (response.status < 500 && response.status >= 400) {
+              errorMessage.innerText = "Helytelen email cím vagy jelszó!";
             } else {
               errorMessage.innerText =
                 "Szerver hiba. Kérlek próbáld meg később!";
